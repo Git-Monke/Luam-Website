@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button"
 import {
     Card,
     CardContent,
@@ -11,6 +10,10 @@ import {
 import {
     Separator
 } from "@/components/ui/separator"
+
+import ConfirmDeactivation from "./ConfirmDeactivation"
+import CreateToken from "./CreateToken"
+
 
 interface Token {
     name: string,
@@ -99,7 +102,7 @@ export default async function Tokens() {
         <div>
             <div className="flex justify-between">
                 <h2>API Tokens</h2>
-                <Button className="mr-2">Create Token</Button>
+                <CreateToken></CreateToken>
             </div>
             <Separator></Separator>
 
@@ -122,9 +125,7 @@ export default async function Tokens() {
                                 </div>
                             </CardContent>
                             <CardFooter className="mt-auto">
-                                {valid && <Button>
-                                    Invalidate
-                                </Button>}
+                                {valid && <ConfirmDeactivation></ConfirmDeactivation>}
                             </CardFooter>
                         </Card>
                     )})}
