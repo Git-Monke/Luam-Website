@@ -1,0 +1,64 @@
+{
+    "packages": [
+        {
+            "name": "butt",
+            "version": "0.1.1",
+            "description": "A package for printing the word \"butt\".",
+            "downloads": 34
+        },
+        {
+            "name": "luam",
+            "version": "0.1.2",
+            "description": "A package management system for ComputerCraft!",
+            "downloads": 12
+        },
+        {
+            "name": "test",
+            "version": "0.1.1",
+            "description": "A test package that was created for fun.",
+            "downloads": 177
+        },
+        {
+            "name": "tableutils",
+            "version": "0.2.8",
+            "description": "Extra table utilities",
+            "downloads": 179824723
+        }
+    ],
+    "tokens": [
+        {
+            "name": "tokenName",
+            "id": "b91c62db-4d4e-442d-b6e1-e36fb5307cca",
+            "scopes": [
+                "publish-new",
+                "yank",
+                "publish-update",
+                "change-owners"
+            ],
+            "validUntil": 1703917335608,
+            "creationDate": 1703830935608,
+            "valid": true
+        },
+        {
+            "name": "anotherToken",
+            "id": "9f6596a1-3cf4-48a3-a595-6cc04248694b",
+            "scopes": [
+                "publish-update"
+            ],
+            "validUntil": 1703917335608,
+            "creationDate": 1703830935608,
+            "valid": true
+        },
+        {
+            "name": "thirdToken",
+            "id": "b5734226-1a1f-433c-9cda-dd97bd2c5fe4",
+            "scopes": [
+                "publish-new",
+                "yank"
+            ],
+            "validUntil": 1703917335608,
+            "creationDate": 1703830935608,
+            "valid": false
+        }
+    ]
+}
