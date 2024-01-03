@@ -50,15 +50,24 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({
         revalidate: 60,
       },
     })
-      .then((req) => req.json())
-      .then((body) => {
-        setUser({
-          UserID: body.id,
-          Login: body.login,
-          AvatarUrl: body.avatar_url,
-          HtmlUrl: body.html_url,
-          Name: body.name,
-          Auth: `Bearer ${accessToken}`,
+      .then((req) => {
+        return { bodyPromise: req.json(), statusCode: req.status };
+      })
+      .then(({ bodyPromise, statusCode }) => {
+        if (statusCode !== 200) {
+          setLoading(false);
+          return;
+        }
+
+        bodyPromise.then((body) => {
+          setUser({
+            UserID: body.id,
+            Login: body.login,
+            AvatarUrl: body.avatar_url,
+            HtmlUrl: body.html_url,
+            Name: body.name,
+            Auth: `Bearer ${accessToken}`,
+          });
         });
       });
   }

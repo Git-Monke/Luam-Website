@@ -20,6 +20,7 @@ import { useUserContext } from "@/components/userProvider";
 import { Skeleton } from "@/components/ui/skeleton";
 
 import NewToken from "./NewToken";
+import { toast } from "sonner";
 
 enum Scope {
   publish_update = "publish-update",
@@ -137,13 +138,24 @@ export default function Tokens() {
     setLoading(true);
     fetchTokens(user.userData.Auth)
       .then((result) => {
-        setTokens(result.Items as Token[]);
+        setTokens((result.Items as Token[]) || []);
         setLoading(false);
       })
       .catch((err) => {
         setLoading(false);
       });
   }, [user]);
+
+  const invalidateToken = (tokenIDHash: string) => {
+    const updatedTokens = tokens.map((token) => {
+      if (token.TokenIDHash === tokenIDHash) {
+        return { ...token, Valid: false };
+      }
+      return token;
+    });
+
+    setTokens(updatedTokens);
+  };
 
   const newTokenHandler = (json: { token: string; tokenData: Token }) => {
     setTokens([...tokens, json.tokenData]);
@@ -255,7 +267,36 @@ export default function Tokens() {
                   </div>
                 </CardContent>
                 <CardFooter className="mt-auto">
-                  {valid && <ConfirmDeactivation></ConfirmDeactivation>}
+                  {valid && (
+                    <ConfirmDeactivation
+                      onDialogAction={() => {
+                        toast(`${token.Name} is now being deactivated`);
+                        fetch("https://api.luam.dev/tokens", {
+                          headers: {
+                            Authorization: user.userData!.Auth,
+                            TokenIDHash: token.TokenIDHash,
+                          },
+                          method: "DELETE",
+                        }).then((res) => {
+                          if (res.status !== 200) {
+                            res.json().then((body) => {
+                              toast(
+                                "An error occured while deactivating token",
+                                {
+                                  description: body.message,
+                                }
+                              );
+                            });
+                          } else {
+                            toast(
+                              `${token.Name} has been successfully deactivated`
+                            );
+                            invalidateToken(token.TokenIDHash);
+                          }
+                        });
+                      }}
+                    ></ConfirmDeactivation>
+                  )}
                 </CardFooter>
               </Card>
             );

@@ -1,21 +1,23 @@
-"use client"
+"use client";
 
-import React from 'react'
+import React from "react";
 
-import { useSearchParams, useRouter } from 'next/navigation';
+import { useSearchParams, useRouter } from "next/navigation";
+import { useUserContext } from "@/components/userProvider";
 
 export default function page() {
-    const router = useRouter();
-    const searchParams = useSearchParams();
-    const code = searchParams.get("code")
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const code = searchParams.get("code");
 
-    if (code) {
-        localStorage.setItem("accessCode", code)
-    }
+  const userProvider = useUserContext();
 
-    router.push("http://localhost:3000/account/info")
+  if (code) {
+    userProvider.startLoading();
+    localStorage.setItem("accessCode", code);
+  }
 
-    return (
-        <div>{code}</div>
-    )
+  router.push("http://localhost:3000/account/info");
+
+  return <div>{code}</div>;
 }
