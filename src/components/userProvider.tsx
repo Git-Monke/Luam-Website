@@ -35,7 +35,11 @@ export const useUserContext = () => {
 export const UserProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const accessToken = localStorage.getItem("authToken");
+  console.log(typeof window);
+  const accessToken =
+    typeof window !== "undefined"
+      ? localStorage.getItem("authToken")
+      : undefined;
 
   const [userData, setUser] = useState<UserData | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
