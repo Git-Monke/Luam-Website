@@ -8,6 +8,7 @@ import { UserProvider } from "@/components/userProvider";
 import React from "react";
 
 import { Toaster } from "@/components/ui/sonner";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -25,7 +26,9 @@ export default function RootLayout({
         <body>
           <nav>
             <div className="flex justify-between">
-              <h1>Luam</h1>
+              <Link href="/">
+                <h1>Luam</h1>
+              </Link>
               <SignIn></SignIn>
             </div>
             {children}
