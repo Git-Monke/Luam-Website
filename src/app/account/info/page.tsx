@@ -39,16 +39,13 @@ export default function Page() {
 
     userContext.startLoading();
     try {
-      fetch(
-        "https://g06vvsjan9.execute-api.us-west-2.amazonaws.com/main/signup",
-        {
-          method: "POST",
-          headers: {
-            ["X-Code"]: accessCode,
-          },
-          cache: "default",
-        }
-      )
+      fetch("https://api.luam.dev/signup", {
+        method: "POST",
+        headers: {
+          ["X-Code"]: accessCode,
+        },
+        cache: "default",
+      })
         .then((res) => {
           if (!res.ok) {
             throw new Error("Failed to load resources");
