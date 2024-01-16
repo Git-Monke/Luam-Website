@@ -15,11 +15,10 @@ export default function page() {
   useEffect(() => {
     if (code) {
       userProvider.startLoading();
-      console.log(code);
       localStorage.setItem("accessCode", code);
       router.push("/account/info");
     }
   }, [code, router, userProvider]);
 
-  return <div>{code}</div>;
+  return <div></div>;
 }
